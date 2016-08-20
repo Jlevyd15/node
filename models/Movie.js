@@ -22,5 +22,5 @@ var FavsSchema = new Schema({
 	likes: Number
 });
 
-//tell mongoose that from now on we will refer to this collection as 'Movie' using the schema 'MoviesSchema'
+//tell mongoose that from now on we will refer to this collection as 'Favs' using the schema 'FavSchema'
 mongoose.model('Favs', FavsSchema);

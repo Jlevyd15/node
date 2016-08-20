@@ -2,7 +2,6 @@
 $(document).ready(function() {
 	//call on change function to wait for change events on the inputs
 	/*onChangeValidation();*/
-	
 });
 
 //---------------------------------------------- Validation Module ----------------------------------------------
@@ -10,8 +9,8 @@ $(document).ready(function() {
 var Validation_Module = (function() {
 	return {
 		validateNotEmpty: function(textInput) {
-			if (textInput == "" || textInput === null || typeof textInput === "undefined") {
-				return false
+			if (textInput === "" || textInput === null || typeof textInput === "undefined") {
+				return false;
 			} else
 				return true;
 		},
@@ -83,7 +82,7 @@ $('body').on('click', '#movieTable tbody td a.close', function() {
 //use jquery to find when user clicks the delete button
 $('body').on('click', '#favTable tbody td a.close', function() {
 	event.preventDefault();
-	console.log('Delete Button')
+	console.log('Delete Button');
 		//pop up confirmation
 	var confirmation = confirm("Are you sure you want to delete this movie from your favorites list?");
 
@@ -104,7 +103,7 @@ $('body').on('click', '#favTable tbody td a.close', function() {
 			$("#formAlert").html("<span aria-hidden='true' class='glyphicon glyphicon-ok'></span> Entry Deleted");
 			$("#formAlert").delay(5000).fadeOut(1000);
 			//RefreshFavTable();
-			Refresh_Element_Module.refreshTable("#favTable", "favorites #favTable")
+			Refresh_Element_Module.refreshTable("#favTable", "favorites #favTable");
 		});
 	} else
 	//if user selects cancel to the confirmation, do nothing
@@ -126,13 +125,13 @@ $('#btnSubmit').on('click', function() {
 			title: title,
 			year: year,
 			genre: genre
-		}
+		};
 		//We also want to check if the input is valid here
 		//check title
 	if (title === "") {
 		inputIsValid[0] = false;
 	} else
-		inputIsValid[0] = true
+		inputIsValid[0] = true;
 		//check year
 	if (year === "") {
 		inputIsValid[1] = false;
@@ -147,7 +146,7 @@ $('#btnSubmit').on('click', function() {
 		inputIsValid[2] = true;
 
 	for (var i = 0; i < inputIsValid.length; i++) {
-		if (inputIsValid[i] != true) {
+		if (inputIsValid[i] !== true) {
 			console.log(inputIsValid[i] + " is not good");
 		} else
 			count++;
