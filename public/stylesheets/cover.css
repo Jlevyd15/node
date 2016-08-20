@@ -3,7 +3,7 @@ body {
   margin: 0px;
   height: 100%;
   background-color: #fff;
-  background: url("/images/sf.gif") no-repeat center center;
+  /*background: url("/images/sf.gif") no-repeat center center;*/
   background-position: 50% 95%; 
   background-size: 400px 300px;
 }

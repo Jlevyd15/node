@@ -17,7 +17,7 @@ app.set('port', (process.env.PORT || 5000));
 //comment the next line and use 'mongoUri' connection string when connecting with heroku db
 var localMongoUri = 'mongodb://127.0.0.1/MovieApp';
 var mongoUri = 'mongodb://heroku_gwxxlbz7:cfa89t0rf6b7ggtlnp8gd1euqj@ds139715.mlab.com:39715/heroku_gwxxlbz7';
-mongoose.connect(localMongoUri);
+mongoose.connect(mongoUri);
 var db = mongoose.connection;
 db.on('error', function() {
 	throw new Error('unable to connect to database at ' + mongoUri);
