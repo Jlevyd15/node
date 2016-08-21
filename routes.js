@@ -25,8 +25,10 @@ module.exports = function(app){
     app.get('/contact', movies.getContactPage);
     app.post('/contact', movies.postContactMessage);
     //routes for movie search of OMdb
-    //app.update('/favorites:id', movies.updateFav);
+
     app.get('/favorites', movies.getFavoritesPage);
+    app.get('/favorites/search', movies.sendFavorites);
+    app.put('/favorites/update', movies.updateFavorite);
     app.post('/searchFavorites', movies.getOMdbMovie);
     app.post('/searchFavorites/saveMovie', movies.savFavSeach);
     app.use('*', movies.notFound);

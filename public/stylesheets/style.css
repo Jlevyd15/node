@@ -27,7 +27,7 @@ body {
   	margin-right:2px;
   }
 
-.nav>li>a {padding-top:15px; padding-right:0px; padding-left: 0px;}
+.nav>li>a {padding-top:15px; padding-right:0px; padding-left: 5px;}
 a.btn-nav { height:44px; width:auto; margin-left: 20px;}
 a.btn-nav:hover { height:44px;  }
 
@@ -121,24 +121,31 @@ ul.nav.navbar-nav {
 .navbar-default .navbar-nav>.active>a {
   border-bottom: solid #00b8ff 2px;
   text-decoration: none;
-  background-color: transparent;
+  background-color: transparent !important;
   width: auto;
-}
-.navbar-default .navbar-nav>.active>a:hover {
-  border-bottom: solid #00b8ff 2px;
-  text-decoration: none;
-  background-color: transparent;
-
 }
 
 .btn-nav:hover {
-/*color: black !important;*/
+  background-color: transparent;
   border-bottom: solid #00b8ff 2px;
   text-decoration: none;
 }
 
 .demo-modal {
   float: right;
+}
+
+@media(max-width: 767px){
+  .navbar-default .navbar-nav>.active>a {
+    border-left: solid #00b8ff 2px;
+    border-bottom: none;
+  }
+  .btn-nav:hover {
+    border-bottom: none;
+    background-color: transparent;
+    border-left: solid #00b8ff 2px;
+    text-decoration: none;
+  }
 }
 
 /*----------------- End Nav Bar ------------------------*/
@@ -148,23 +155,21 @@ ul.nav.navbar-nav {
   overflow-y: scroll;
 }
 
-.likeBtnBar {
+#favTable-container::-webkit-scrollbar{
   display: none;
-/*
-  position: relative;
-  width: 50px;
-  margin: 0px;*/
+}
+#likeBtnBar{
+  margin-bottom: 10px;
+}
+
+#likeBtnBar > a#favBtn, #likeBtnBar > a#likeBtn{
+  display: none;
+  margin-bottom: 10px;
 }
 
 #posterDiv {
   display:none;
 
-}
-#likeBtnBar {
-  display:none;
-}
-#likeBtnBar:hover {
-  display:none;
 }
 
 .featureHeadings {

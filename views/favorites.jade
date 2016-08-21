@@ -41,7 +41,7 @@ block content
 									div.modal-header
 										button(type="button", class="close", data-dismiss="modal")
 											span(class="glyphicon glyphicon-remove-circle" aria-hidden="true", style="color:red")
-										h4(class="modal-title", style="color:#ff3300;") How This Works?
+										h4(class="modal-title", style="color:#ff3300;") How This Works...
 									div.modal-body
 										p Use the search bar to find your favorite movies, actors or tv shows
 										p You can save the movie for later by clicking the heart button or like it using the thumbs up button.
@@ -49,10 +49,9 @@ block content
 									div.modal-footer
 										div.row
 											div.col-sm-4
-										p If you find any bugs or have any suggestions let me know... 
+										p If you have any comments or suggestions let me know. 
 										a(class="btn btn-default" href="/contact")
 											span(class="glyphicon glyphicon-envelope", aria-hidden="true")
-
 												
 						form#formAddMovie(class="form-group-lg")
 							div(class="form-group has-feedback")
@@ -70,7 +69,7 @@ block content
 								div#likeBtnBar
 									a#favBtn(class="btn btn-secondary btn-lg")
 										span(class="glyphicon glyphicon-heart", aria-hidden="true")
-									a#likeBtn(class="btn btn-secondary btn-lg")
+									a#likeBtn(class="btn btn-secondary btn-lg" data-id="")
 										span(class="glyphicon glyphicon-thumbs-up", aria-hidden="true")
 								div#posterDiv
 									a#posterLink(href="", target="_blank")

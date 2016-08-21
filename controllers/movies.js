@@ -178,10 +178,17 @@ exports.getFavoritesPage = function(req, res) {
   });
 }
 
+exports.sendFavorites = function(req, res) {
+  Favs.find({},{'title':1}, function(err, results){
+    return res.send(results);
+  });
+}
+
 exports.getOMdbMovie = function(req, res) {
   var url = 'http://www.omdbapi.com/?plot=full&t='
   var title = req.body.title;
-  var searchUrl = url + title;
+  var key = '&apikey=5b796ea';
+  var searchUrl = url + title + key;
   console.log("in getOMdbMovie route " + searchUrl);
   request(searchUrl, function(error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -218,10 +225,20 @@ exports.savFavSeach = function(req, res) {
   });
 }
 
-exports.updateFav = function(req, res) {
-  var favId = req.params.id;
 
+exports.updateFavorite = function(req, res){
+  var id = req.body.id;
+  //console.log(id);
+  Favs.update({"_id": id},{$inc:{"likes": 1}}, function(err, results){
+    if(err){
+      res.send("There was a problem adding the information to the database. " + err);
+    }else {
+      console.log(results);
+      res.send("Movie Liked" + results);
+    }
+  })
 }
+
 
 //Handle 404 - not found
 exports.notFound = function(req, res) {

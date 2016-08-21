@@ -268,7 +268,7 @@ function onChangeValidation() {
 }
 
 //---------------------------------------------- Favorites Validation ----------------------------------------------
-	$('#allDetails li').click(function(){
+	$('#allDetails ul li').click(function(){
 		alert('got li');
 	});
 
@@ -284,6 +284,9 @@ $("a.favoriteTitle").click(function() {
 	var title = {
 		title: this.innerText
 	}
+	//add the id to the like button so it is easy to update
+	var favoriteTitleId = $(this).attr('id');
+	$('#likeBtn').attr('data-id', favoriteTitleId);
 	findFavoriteMovie(title);
 })
 
@@ -320,6 +323,8 @@ function findFavoriteMovie(favTitle) {
 		success: function(response) {
 			console.log("Movie Found: " + response.Response);
 			checkIfMovieExists(response);
+			//get the list of movie titles in the favorites table
+			Favorites_Search_Update_Module.checkIfMovieIsFav(favTitle);
 		}
 	}).fail(function(status) {
 		alert("Error, not sent");
@@ -340,9 +345,10 @@ function checkIfMovieExists(response) {
 		$("#formAlert").delay(5000).fadeOut(400);
 	} else if (typeof response.Response === "undefined") {
 		$("#formAlert").show();
-		$("#formAlert").html("<span aria-hidden='true' class='glyphicon glyphicon-exclamation-sign'></span> You may not have internet connection or the OpenMoviedb is down, please check your connection and try again");
+		$("#formAlert").html("<span aria-hidden='true' class='glyphicon glyphicon-exclamation-sign'></span> You may not have Internet connection or the OpenMoviedb is down, please check your connection and try again");
 		$("#formAlert").delay(5000).fadeOut(400);
 	} else {
+		$("#allDetails ul").html('');
 		for (var prop in response) {
 			if (prop == "Plot" || prop == "Title" || prop == "Poster" || prop == "Metascore" || prop == "imdbRating" || prop == "imdbVotes" || prop == "Type" || prop == "Response") {} else {
 				$("<li>" + prop + " " + response[prop] + "</li>").appendTo($("#allDetails ul"));
@@ -350,7 +356,7 @@ function checkIfMovieExists(response) {
 		}
 		//Display the response results on the page
 		$("#formAlert").hide();
-		
+
 		//$('#resTitle').html("Thinking...");
 		$("#favTitleHeading").html(response.Title);
 		$("#favMetaScoreHeading").html("<strong>Metascore</strong> " + response.Metascore + "%");
@@ -363,7 +369,7 @@ function checkIfMovieExists(response) {
 		$('#resPlot').show().css('cursor', 'pointer');
 		$('#allDetails').slideUp();
 		//$("#resPlot").html(response.Plot);
-		$("#posterDiv, #likeBtnBar").show();
+		$("#posterDiv, #likeBtnBar > #favBtn").show();
 		$('.featureHeadings').show();
 		$("#resPoster").attr('src', response.Poster);
 		$("#posterLink").attr('href', "http://www.imdb.com/title/" + response.imdbID);
@@ -390,35 +396,78 @@ function checkIfMovieExists(response) {
 //--------------------------------------------- Start Movie Details Sections ----------------------------------------------
 
 $('#moreDetailsBtn').click(function() {
-	$('#allDetails').slideToggle("slow", function() {
-		$('#moreDetailsBtn>span').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
+	$('#allDetails').slideToggle("fast", function() {
+		$('#moreDetailsBtn>span').toggleClass("glyphicon glyphicon-chevron-up glyphicon glyphicon-chevron-down");
 	});
 });
 
 $('#resPlot').click(function() {
-	$('#plotText').slideToggle("slow", function() {
+	$('#plotText').slideToggle("fast", function() {
 		$('#resPlot>span').toggleClass("glyphicon glyphicon-chevron-down glyphicon glyphicon-chevron-up");
 	});
 });
 //--------------------------------------------- End Movie Details Sections ----------------------------------------------
 
 //----------------------------------------------Favorites Like Btn Bar ----------------------------------------------
+var Favorites_Search_Update_Module = (function() {
+	return {
+		checkIfMovieIsFav: function (movieTitle){
+			var id;
+			$.ajax({
+				type: 'GET',
+				url: '/favorites/search'
+			}).done(function(response){
+				//console.log('User searched for: '+movieTitle.title);
+				$('#likeBtn').hide();
+				for(var i = 0; i < response.length; i++){
+					//console.log("Favorites: "+response[i].title, "Search Title: "+movieTitle.title)
+					if(response[i].title.toString() === movieTitle.title){
+						id = response[i]._id;
+						//console.log(id);
+						$('#likeBtn').show();
+						break;
+					}
+				}
+				return id;
+			});
+		}
+	}
+})();
+
 
 $('#likeBtn').on('click', function() {
 	/*alert('Got like button');*/
 	/*var result = Validation_Module.validateMinLength(7, 2);*/
 	/*(result) ? alert("Returns true"): alert("Returns False");*/
-	$("#formAlert").show();
-		/*$("#formAlert").toggleClass("").show();*/
-		$("#formAlert").removeClass("alert alert-danger").addClass("alert alert-success").show();
-		$("#formAlert").html("<span aria-hidden='true' class='glyphicon glyphicon-ok'></span> Liked");
-		$("#formAlert").delay(5000).fadeOut(400);
+	var favMovieObj = {
+		id: $(this).attr('data-id')
+	};
+
+	$.ajax({
+		type: 'PUT',
+		url: '/favorites/update',
+		data: favMovieObj
+	}).done(function(response){
+		Refresh_Element_Module.refreshTable("#favTable", "favorites #favTable");
+		//console.log(JSON.stringify(response));
+	});
+
+			$("#formAlert").show();
+			/*$("#formAlert").toggleClass("").show();*/
+			$("#formAlert").removeClass("alert alert-danger").addClass("alert alert-success").show();
+			$("#formAlert").html("<span aria-hidden='true' class='glyphicon glyphicon-ok'></span> Liked");
+			$("#formAlert").delay(5000).fadeOut(400);
+		
 })
 
 //save search to fav table
 $('#favBtn').on('click', function() {
 	var title = $("#favTitleHeading").text();
 	//alert(title);
+
+	//enable the like button now that it is a favorite
+	$('#likeBtn').show();
+
 	var searchTitle = {
 		searchTitle: title
 	};
