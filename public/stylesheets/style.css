@@ -4,15 +4,16 @@
 #formAlert, #form-feedback-title, #form-feedback-year, #form-feedback-genre, #form-feedback-name, #form-feedback-email, #form-feedback-message {
   display: none;
 }
-
- body, html, /*.container .resume-container iframe */ {
-         /*font-family: Consolas, monaco, monospace;*/
-         font-family: verdana;
-        width: 100%;
-        position: relative;
-        min-height: 100%;
+html {
+  position: relative;
+  min-height: 100%;
+  font-family: verdana;
+  width: 100%;
 }
+
 body {
+  font-family: verdana;
+  width: 100%;
   /* Margin bottom by footer height */
   height: 100%;
   margin-bottom: 60px;
@@ -223,17 +224,16 @@ span.close {
 footer {
   /* Set the fixed height of the footer here */
   position:absolute;
-  bottom:0px;
   background: #00b8ff;
   width: 100%;
-  margin: 0px;
-}
+  bottom: 0;
+  /* Set the fixed height of the footer here */
+  height: 60px;
 
-/*@media (min-width: 768px) {
-  .footer {
-    bottom:1px;
+}
+footer.row {
+  margin: 0px 0px !important;
   }
-}*/
 
 .footer-text {
   padding-top: 10px;
@@ -265,5 +265,12 @@ footer {
   padding:10px;
   box-shadow: 0 0 .2em rgba(55, 66, 75, .7);
   position: relative;
+}
+
+#movie-box {
+  background: no-repeat top right/15% #f8f8f8 url('/images/2x_movie_blue.svg');
+}
+#car-share-box {
+  background: no-repeat top right/15% #f8f8f8 url('/images/2x_steering_wheel_blue.svg');
 }
 
