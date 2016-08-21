@@ -147,14 +147,27 @@ ul.nav.navbar-nav {
     border-left: solid #00b8ff 2px;
     text-decoration: none;
   }
+  #likeBtnBar{
+    margin-top: 20px;
+  }
 }
 
 /*----------------- End Nav Bar ------------------------*/
 
 #favTable-container {
-  height:500px;
+  height:300px;
   overflow-y: scroll;
 }
+/*#favTable {
+  position: relative;
+}
+
+#favTable > thead > tr {
+  position: absolute;
+  top:0px;
+  width: 100%;
+  padding-bottom:10px;
+}*/
 
 #favTable-container::-webkit-scrollbar{
   display: none;
@@ -178,8 +191,9 @@ ul.nav.navbar-nav {
 
   }
 
-  .featureHeadings > h3{
-    /*margin:0px;*/
+.featureHeadings > h4{
+    float: left;
+    margin-right: 10px;
   }
 
 .save {
@@ -195,6 +209,10 @@ ul.nav.navbar-nav {
 }
 #moreDetailsBtn {
   display: none;
+}
+
+h4#allDetails > ul > li{
+  margin-bottom:5px;
 }
 
 #resPlot {
